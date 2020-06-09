@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../lib/app');
 
-describe('createResponse', () => {
+describe('the application', () => {
   it('returns plaintext \'hi\' on GET to \'/\' ', () => {
     return request(app)
       .get('/')
@@ -21,5 +21,11 @@ describe('createResponse', () => {
     return request(app)
       .get('/green')
       .then(res => expect(res.text).toEqual('<h1>green</h1>'));
+  });
+  it('returns request body on POST to \'/echo\' ', () => {
+    return request(app)
+      .post('/echo')
+      .send('Echo, echo, echo')
+      .then(res => expect(res.text).toEqual('Echo, echo, echo'));
   });
 });
